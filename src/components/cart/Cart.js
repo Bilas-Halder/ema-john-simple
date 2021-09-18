@@ -1,26 +1,24 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import fakeData from '../../fakeData';
 import './Cart.css';
 
 const Cart = (props) => {
-    const ssKeys = Object.keys(sessionStorage);
-    const index = ssKeys.indexOf("savefrom-helper-extension");
+    const lsKeys = Object.keys(localStorage);
+    const index = lsKeys.indexOf("savefrom-helper-extension");
     if (index > -1) {
-        ssKeys.splice(index, 1);
+        lsKeys.splice(index, 1);
     }
 
-    console.log('fake langth', fakeData.length);
-    const cart = ssKeys.map(key => {
-        console.log(key);
+    const cart = lsKeys.map(key => {
         const product = fakeData.find(product => product.key === key);
-        product.quantity = parseInt(sessionStorage[key]);
+        product.quantity = parseInt(localStorage[key]);
         return product;
     });
     const totalPrice = cart.reduce((total, product) => total + (product.price * product.quantity), 0);
-    const totalShippingCost = (cart.reduce((total, product) => total + product.shipping, 0)) * 85 / 100;
+    const totalShippingCost = (cart.reduce((total, product) => total + (product.shipping * product.quantity), 0)) * 85 / 100;
 
     const tax = totalPrice * 12 / 100;
-    console.log(cart);
 
     return (
         <div className='cart'>
@@ -52,10 +50,20 @@ const Cart = (props) => {
                     </tr>
                 </table>
 
-                <div className="order-btn-div">
-
-                    <button onClick={() => props.handler(cart)} className='order-btn' >Place Order</button>
-                </div>
+                {
+                    props.forReview ?
+                        <Link to="/order-placed">
+                            <div className="order-btn-div">
+                                <button className='order-btn' >Place Order</button>
+                            </div>
+                        </Link>
+                        :
+                        <Link to="/order-review">
+                            <div className="order-btn-div">
+                                <button className='order-btn' >Review Cart</button>
+                            </div>
+                        </Link>
+                }
             </div>
 
         </div>

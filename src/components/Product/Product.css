@@ -10,6 +10,7 @@
 .product-name{
     color: blue;
     font-weight: 500;
+    margin-bottom: 0px;
 }
 .cart-btn{
     background-color: goldenrod;
@@ -50,4 +51,14 @@
     color: #6d6d6d;
     font-size:0.9rem;
     margin-left: 20px;
+}
+.quantity-meter{
+    display: inline;
+    padding-left: 10px;
+}
+.quantity-div .quantity {
+    padding-left: 10px;
+    padding-right: 10px;
+    color: #b12704;
+    font-weight: 500;
 }

@@ -10,18 +10,23 @@ const Shop = () => {
     const [cart, setCart] = useState([]);
 
     const handleAddProduct = (product) => {
-        // setting sessionStorage with quantity
-        const keys = Object.keys(sessionStorage);
+        // setting localStorage with quantity
+
+        if (product.stock <= product.quantity) {
+            return undefined;
+        }
+
+        const keys = Object.keys(localStorage);
         const keyExist = keys.find(key => key === product.key);
         if (keyExist) {
-            sessionStorage.setItem(keyExist, parseInt(sessionStorage.getItem(keyExist)) + 1);
+            localStorage.setItem(keyExist, parseInt(localStorage.getItem(keyExist)) + 1);
             product.quantity++;
             let newCart = cart.filter(pd => pd.key !== keyExist);
             newCart = [...newCart, product];
             setCart(newCart);
         }
         else {
-            sessionStorage.setItem(product.key, 1);
+            localStorage.setItem(product.key, 1);
             product.quantity = 1;
             const newCart = [...cart, product];
             setCart(newCart);
@@ -37,7 +42,7 @@ const Shop = () => {
 
             </div>
             <div className="cart-container">
-                <Cart cart={cart}></Cart>
+                <Cart></Cart>
             </div>
         </div>
     );

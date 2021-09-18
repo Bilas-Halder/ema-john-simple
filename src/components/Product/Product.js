@@ -1,12 +1,12 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShoppingCart, faStar, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { faShoppingCart, faStar, faTrashAlt, faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 import './Product.css';
 
 
 const Product = (props) => {
-    const { name, img, seller, price, stock, star, key, features } = props.product;
+    const { name, img, seller, price, stock, star, key, features, quantity } = props.product;
     const forReview = props.forReview;
 
     const starArray = [];
@@ -80,6 +80,21 @@ const Product = (props) => {
             </div>
         );
     }
+    const getQuantities = () => {
+        return (
+            <div className="quantity-div">
+                Quantity : <div className="quantity-meter">
+                    <button onClick={() => props.quantityHandler.plusQuantity(props.product)} className="add"> <FontAwesomeIcon className='fa-plus' icon={faPlus} /> </button>
+
+                    <span className="quantity"> {quantity} </span>
+
+                    <button onClick={() => props.quantityHandler.minusQuantity(props.product)} className="remove"> <FontAwesomeIcon className='fa-minus' icon={faMinus} /> </button>
+                </div>
+            </div>
+        );
+    };
+
+
     return (
         <div className='product'>
             <div className='product-img'>
@@ -92,6 +107,7 @@ const Product = (props) => {
                     <div className='product-details-left'>
                         {!forReview && <p>by : {seller}</p>}
                         <h4 className='fw-normal'>$ {price}</h4>
+                        {forReview && getQuantities()}
                         <p><small>Only {stock} left in stock - order soon</small></p>
                         {!forReview ? addToCartBtn() : removeFromCartBtn()}
 
