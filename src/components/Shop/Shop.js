@@ -10,11 +10,22 @@ const Shop = () => {
     const [cart, setCart] = useState([]);
 
     const handleAddProduct = (product) => {
-        const newCart = [...cart, product];
-        setCart(newCart);
-    };
-    const handleCart = (cartItems) => {
-        console.log('cartItems');
+        // setting sessionStorage with quantity
+        const keys = Object.keys(sessionStorage);
+        const keyExist = keys.find(key => key === product.key);
+        if (keyExist) {
+            sessionStorage.setItem(keyExist, parseInt(sessionStorage.getItem(keyExist)) + 1);
+            product.quantity++;
+            let newCart = cart.filter(pd => pd.key !== keyExist);
+            newCart = [...newCart, product];
+            setCart(newCart);
+        }
+        else {
+            sessionStorage.setItem(product.key, 1);
+            product.quantity = 1;
+            const newCart = [...cart, product];
+            setCart(newCart);
+        }
     };
 
     return (
@@ -26,7 +37,7 @@ const Shop = () => {
 
             </div>
             <div className="cart-container">
-                <Cart cart={cart} handler={handleCart}></Cart>
+                <Cart cart={cart}></Cart>
             </div>
         </div>
     );

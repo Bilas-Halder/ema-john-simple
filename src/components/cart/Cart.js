@@ -1,12 +1,26 @@
 import React from 'react';
+import fakeData from '../../fakeData';
 import './Cart.css';
 
 const Cart = (props) => {
-    const cart = props.cart;
-    const totalPrice = cart.reduce((total, product) => total + product.price, 0);
+    const ssKeys = Object.keys(sessionStorage);
+    const index = ssKeys.indexOf("savefrom-helper-extension");
+    if (index > -1) {
+        ssKeys.splice(index, 1);
+    }
+
+    console.log('fake langth', fakeData.length);
+    const cart = ssKeys.map(key => {
+        console.log(key);
+        const product = fakeData.find(product => product.key === key);
+        product.quantity = parseInt(sessionStorage[key]);
+        return product;
+    });
+    const totalPrice = cart.reduce((total, product) => total + (product.price * product.quantity), 0);
     const totalShippingCost = (cart.reduce((total, product) => total + product.shipping, 0)) * 85 / 100;
 
     const tax = totalPrice * 12 / 100;
+    console.log(cart);
 
     return (
         <div className='cart'>

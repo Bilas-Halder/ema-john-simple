@@ -68,11 +68,11 @@ const Product = (props) => {
                     <label for="html">8-10 business days</label><br />
                     <small>$0 - Free Shipping</small><br />
 
-                    <input type="radio" id="5-7" name="shipping" value="3.99"></input>
+                    <input type="radio" id="5-7" name="shipping" value="3.99" checked ></input>
                     <label for="css">5-7 business days</label><br />
                     <small>$3.99 - Regular Shipping</small><br />
 
-                    <input type="radio" id="2-4" name="shipping" value="7.99" checked ></input>
+                    <input type="radio" id="2-4" name="shipping" value="7.99"></input>
                     <label for="css">2-4 business days</label><br />
                     <small>$3.99 - Standard Shipping</small><br />
 
@@ -80,8 +80,6 @@ const Product = (props) => {
             </div>
         );
     }
-
-    console.log(props.forReview);
     return (
         <div className='product'>
             <div className='product-img'>
