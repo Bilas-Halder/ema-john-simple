@@ -1,0 +1,29 @@
+.cart-header{
+    text-align: center;
+}
+.cart tr{
+    line-height: 1.5rem;
+}
+.price-td{
+    padding-left: 1rem;
+}
+.order-total{
+    color: #b12704;
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 2rem;
+}
+.order-btn-div{
+    display: flex;
+    justify-content: center;
+}
+.order-btn{
+    background-color: goldenrod;
+    font-size: 1rem;
+    padding: 0px 20%;
+    height: 30px;
+    border: 1px solid #585858;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 1rem auto 0 auto;
+}

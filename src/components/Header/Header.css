@@ -15,7 +15,8 @@ nav a{
     color: white;
     margin-right: 20px;
     border-radius: 5px;
-    padding: 5px;
+    padding: 5px 10px;
+    text-align: center;
 }
 nav a:hover{
     background-color: gray;
