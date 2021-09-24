@@ -4,8 +4,28 @@ import Cart from '../cart/Cart';
 import Product from '../Product/Product';
 import '../Shop/Shop.css';
 
-const OrderReview = () => {
+const OrderReview = ({ searchText }) => {
     const [cart, setCart] = useState([]);
+    const [cartItems, setCartItems] = useState([]);
+
+
+    const loadSearchedData = (text) => {
+        let searchedItems = cartItems.filter(product => product.name.toLocaleLowerCase().includes(text.toLocaleLowerCase()));
+        setCart(searchedItems);
+    };
+
+    useEffect(() => {
+        const items = getLocalStorage();
+        setCartItems(items);
+
+        if (searchText === "") {
+            setCart(cartItems);
+            return;
+        }
+        loadSearchedData(searchText);
+
+    }, [searchText]);
+
 
     const getLocalStorage = () => {
         const lsKeys = Object.keys(localStorage);
@@ -43,8 +63,12 @@ const OrderReview = () => {
             const key = product.key;
             localStorage.setItem(key, parseInt(localStorage.getItem(key)) + 1);
             product.quantity++;
-            let newCart = cart.filter(pd => pd.key !== key);
-            newCart = [...newCart, product];
+            let newCart = cart.map(pd => {
+                if (pd.key === key) {
+                    return product;
+                }
+                return pd;
+            });
             setCart(newCart);
         }
     };
@@ -53,8 +77,12 @@ const OrderReview = () => {
             const key = product.key;
             localStorage.setItem(key, parseInt(localStorage.getItem(key)) - 1);
             product.quantity--;
-            let newCart = cart.filter(pd => pd.key !== key);
-            newCart = [...newCart, product];
+            let newCart = cart.map(pd => {
+                if (pd.key === key) {
+                    return product;
+                }
+                return pd;
+            });
             setCart(newCart);
         }
     };
@@ -68,7 +96,7 @@ const OrderReview = () => {
         <div className='shop-container'>
             <div className="product-container">
                 {
-                    cart.map(product => <Product forReview product={product} handler={handleRemoveProduct} quantityHandler={quantityHandler}></Product>)
+                    cart.map(product => <Product key={product.key} forReview product={product} handler={handleRemoveProduct} quantityHandler={quantityHandler}></Product>)
                 }
 
             </div>

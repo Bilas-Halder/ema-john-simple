@@ -5,15 +5,17 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Header from './components/Header/Header';
 import Shop from './components/Shop/Shop';
 import OrderReview from './components/OrderReview/OrderReview';
+import { useState } from 'react';
 
 function App() {
+  const [searchText, setSearchText] = useState("");
   return (
     <Router>
       <div>
-        <Header></Header>
+        <Header setSearchText={setSearchText}></Header>
         <Switch>
-          <Route path='/' exact><Shop></Shop></Route>
-          <Route path='/order-review'><OrderReview></OrderReview></Route>
+          <Route path='/' exact><Shop searchText={searchText}></Shop></Route>
+          <Route path='/order-review'><OrderReview searchText={searchText}></OrderReview></Route>
         </Switch>
 
       </div>

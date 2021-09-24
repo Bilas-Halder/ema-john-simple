@@ -39,8 +39,10 @@
     color: black;
 }
 
+/* shipping part */
 .shippingOptions{
     margin-left: 12rem;
+    margin-top: 1.5rem;
 }
 .shippingOptions label{
     color: #009900;

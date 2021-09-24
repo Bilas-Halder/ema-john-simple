@@ -3,7 +3,12 @@ import { Link } from 'react-router-dom';
 import logo from '../../images/logo.png';
 import './Header.css';
 
-const Header = () => {
+const Header = ({ setSearchText }) => {
+
+    const inputFieldHandler = (event) => {
+        setSearchText(event.target.value);
+    };
+
     return (
         <div className='header'>
             <img src={logo} alt="" />
@@ -13,6 +18,10 @@ const Header = () => {
                 <Link to={'/manage-inventory'}>Manage Inventory</Link>
 
             </nav>
+            <div className="search-div">
+                <input onChange={inputFieldHandler} type="text" placeholder="Search Your Desired Product Here"></input>
+
+            </div>
         </div>
     );
 };

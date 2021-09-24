@@ -35,24 +35,24 @@ const Product = (props) => {
             <div className="product-details-right">
                 <div className='stars'>
                     {
-                        starArray.map(() => <FontAwesomeIcon className='shopping-cart' icon={faStar} />)
+                        starArray.map((e, idx) => <FontAwesomeIcon key={idx} className='shopping-cart' icon={faStar} />)
                     }
                     <div className="no-star">
                         {
-                            noStarArray.map(() => <FontAwesomeIcon className='shopping-cart' icon={faStar} />)
+                            noStarArray.map((e, idx) => <FontAwesomeIcon key={idx} className='shopping-cart' icon={faStar} />)
                         }
                     </div>
                 </div>
                 <div className="features">
                     {features.length > 0 ? <h3>Features</h3> : <div></div>}
                     <small>
-                        <p>
+                        <div>
                             <ul>
                                 {
-                                    features.map(feature => <li>{feature.description} : {feature.value}</li>)
+                                    features.map((feature, idx) => <li key={idx}>{feature.description} : {feature.value}</li>)
                                 }
                             </ul>
-                        </p>
+                        </div>
                     </small>
                 </div>
             </div>
@@ -65,30 +65,31 @@ const Product = (props) => {
                 <form className="shippingOptions" action="">
 
                     <input type="radio" id="8-10" name="shipping" value="free"></input>
-                    <label for="html">8-10 business days</label><br />
+                    <label>8-10 business days</label><br />
                     <small>$0 - Free Shipping</small><br />
 
-                    <input type="radio" id="5-7" name="shipping" value="3.99" checked ></input>
-                    <label for="css">5-7 business days</label><br />
+                    <input type="radio" id="5-7" name="shipping" value="3.99" checked={true} ></input>
+                    <label>5-7 business days</label><br />
                     <small>$3.99 - Regular Shipping</small><br />
 
                     <input type="radio" id="2-4" name="shipping" value="7.99"></input>
-                    <label for="css">2-4 business days</label><br />
-                    <small>$3.99 - Standard Shipping</small><br />
+                    <label>2-4 business days</label><br />
+                    <small>$7.99 - Standard Shipping</small><br />
 
                 </form>
             </div>
         );
-    }
+    };
+
     const getQuantities = () => {
         return (
             <div className="quantity-div">
                 Quantity : <div className="quantity-meter">
-                    <button onClick={() => props.quantityHandler.plusQuantity(props.product)} className="add"> <FontAwesomeIcon className='fa-plus' icon={faPlus} /> </button>
+                    <button onClick={() => props.quantityHandler.plusQuantity(props.product)} className="add"> <FontAwesomeIcon key="fa-plus" className='fa-plus' icon={faPlus} /> </button>
 
                     <span className="quantity"> {quantity} </span>
 
-                    <button onClick={() => props.quantityHandler.minusQuantity(props.product)} className="remove"> <FontAwesomeIcon className='fa-minus' icon={faMinus} /> </button>
+                    <button onClick={() => props.quantityHandler.minusQuantity(props.product)} className="remove"> <FontAwesomeIcon key="fa-minus" className='fa-minus' icon={faMinus} /> </button>
                 </div>
             </div>
         );
